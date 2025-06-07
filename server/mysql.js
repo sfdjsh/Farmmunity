@@ -1,24 +1,22 @@
-const mysql = require('mysql2')
+const mysql = require("mysql2/promise");
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '!!tjems0212',
-    database: 'fammunity'
-})
+let connection;
 
-connection.connect((err) => {
-    if (err) {
-        console.error('MYSQL 연결 실패')
-        return;
+const connectionDatabase = async () => {
+  if (!connection) {
+    try {
+      connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "!!tjems0212",
+        database: "fammunity",
+      });
+    } catch (err) {
+      console.error("mysql 연결 실패");
+      throw err;
     }
-    console.log('MYSQL 연결 성공')
-})
+  }
+  return connection;
+};
 
-connection.query('SELECT * FROM crops', (err, results) => {
-    if (err) {
-        console.error('데이터 조회 중 오류 발생: ', err) 
-        return;
-    }
-    console.log('조회된 데이터: ', results)
-})
+module.exports = connectionDatabase;

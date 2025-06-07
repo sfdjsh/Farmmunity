@@ -1,13 +1,24 @@
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
+const connectDatabase = require("./mysql.js");
 
 const app = express();
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-app.get("/test", (req, res) => {
-  res.json({
-    test: 'hello!'
-  });
+app.get("/test", async (req, res) => {
+  try {
+    const connection = await connectDatabase();
+    const [rows] = await connection.query("SELECT * FROM crops");
+    if (rows.length === 0) {
+      res.json({ data: null });
+    } else {
+      res.json({ data: rows });
+    }
+  } catch (err) {
+    console.error("데이터 조회 오류:", err);
+    res.status(500).send("서버에서 오류가 발생했습니다.");
+  }
 });
 
 app.listen(3000, (req, res) => {
