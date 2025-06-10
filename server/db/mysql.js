@@ -6,10 +6,10 @@ const connectionDatabase = async () => {
   if (!connection) {
     try {
       connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "!!tjems0212",
-        database: "fammunity",
+        host : process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
       });
     } catch (err) {
       console.error("mysql 연결 실패");
