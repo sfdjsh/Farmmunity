@@ -36,6 +36,25 @@ app.get("/crops/name", async (req, res) => {
   }
 });
 
+app.get("/select/crop", async (req, res) => {
+  const { name } = req.query;
+  try {
+    const connection = await connectDatabase();
+    const [rows] = await connection.query(
+      "SELECT name, image From crops WHERE name = ?",
+      [name]
+    );
+    if (rows.length === 0) {
+      res.json({ data: null });
+    } else {
+      res.json({ data: rows[0] });
+    }
+  } catch (err) {
+    console.error("데이터 조회 오류:", err);
+    res.status(500).send("서버에서 오류가 발생했습니다.");
+  }
+});
+
 app.listen(3000, (req, res) => {
   console.log("Server Running..");
 });
