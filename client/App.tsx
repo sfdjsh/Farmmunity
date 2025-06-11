@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
+import SelectCrops from "./component/SelectCrops"
 
 export default function App() {
   const [test, setTest] = useState("");
@@ -22,14 +23,15 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View style={{ backgroundColor: "green", marginTop: 50 }}>
+      {/* <View style={{ backgroundColor: "green", marginTop: 50 }}>
         <Text>에로우 버튼</Text>
-      </View>
-      <View style={{ backgroundColor: "blue" }}>
-        <Text style={{ fontSize: 30 }}>Farmmunity</Text>
+      </View> */}
+      <View style={{marginTop:50}}>
+        <Text style={{ fontSize: 30, fontWeight:'bold', color:'white', textAlign:'center' }}>🍒Farmmunity🍓</Text>
       </View>
       <View style={{ flex: 1, backgroundColor: "green" }}>
-        <Text>(selectbox)방울 토마토</Text>
+        {/* <Text>(selectbox)방울 토마토</Text> */}
+        <SelectCrops />
         <Image
           style={styles.image}
           source="https://img.hankyung.com/photo/202403/AA.36104679.1.jpg"
@@ -60,7 +62,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "#212528",
   },
   image: {
     width: 100,

@@ -21,21 +21,6 @@ app.get("/test", async (req, res) => {
   }
 });
 
-app.get("/vegetable/name", async (req, res) => {
-  try {
-    const api1 = await fetch("https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList&p_product_cls_code=02&p_country_code=1101&p_regday=2015-10-01&p_convert_kg_yn=N&p_item_category_code=400&p_cert_key=111&p_cert_id=222&p_returntype=json")
-    const api2 = await fetch("https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList&p_product_cls_code=02&p_country_code=1101&p_regday=2015-10-01&p_convert_kg_yn=N&p_item_category_code=200&p_cert_key=111&p_cert_id=222&p_returntype=json")
-    const data1 = await api1.json();
-    const data2 = await api2.json();
-    const crops = [...new Set(data1.data.item.map(name => name.item_name ))]
-    const crops2 = [...new Set(data2.data.item.map(name => name.item_name ))]
-    console.log(crops, crops2)
-    res.json(data)
-  } catch (err) {
-    console.error(err);
-  }
-});
-
 app.listen(3000, (req, res) => {
   console.log("Server Running..");
 });
