@@ -9,20 +9,21 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~5.0.4",
     "expo": "~53.0.9",
     "expo-image": "~2.2.0",
     "expo-status-bar": "~2.2.3",
     "lodash": "^4.17.21",
     "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-select-dropdown": "^4.0.1",
-    "react-dom": "19.0.0",
-    "react-native-web": "^0.20.0",
-    "@expo/metro-runtime": "~5.0.4"
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "react-native-dotenv": "^3.4.11",
     "typescript": "~5.8.3"
   },
   "private": true
