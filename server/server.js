@@ -21,6 +21,20 @@ app.get("/test", async (req, res) => {
   }
 });
 
+app.get("/crops/name", async (req, res) => {
+  try {
+    const connection = await connectDatabase();
+    const [rows] = await connection.query("SELECT (name) From crops");
+    if (rows.length === 0) {
+      res.json({ data: null });
+    } else {
+      res.json({ data: rows });
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+});
 app.listen(3000, (req, res) => {
   console.log("Server Running..");
 });
