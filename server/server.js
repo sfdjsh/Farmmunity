@@ -31,10 +31,11 @@ app.get("/crops/name", async (req, res) => {
       res.json({ data: rows });
     }
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error("데이터 조회 오류:", err);
+    res.status(500).send("서버에서 오류가 발생했습니다.");
   }
 });
+
 app.listen(3000, (req, res) => {
   console.log("Server Running..");
 });

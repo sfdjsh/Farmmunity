@@ -2,20 +2,21 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
-import SelectCrops from "./component/SelectCrops"
+import SelectCrop from "./component/SelectCrop"
 
 export default function App() {
-  const [test, setTest] = useState("");
+  // const [test, setTest] = useState("");
 
-  const apiTest = async () => {
-    const res = await fetch("http://127.0.0.1:3000/test");
-    const data = await res.json();
-    setTest(data.test);
-  };
+  // const apiTest = async () => {
+  //   const res = await fetch("http://127.0.0.1:3000/test");
+  //   const data = await res.json();
+  //   setTest(data.test);
+  //   console.log(test, 'test')
+  // };
 
-  useEffect(() => {
-    apiTest();
-  }, []);
+  // useEffect(() => {
+  //   apiTest();
+  // }, []);
 
   const blurhash =
     "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
@@ -30,8 +31,7 @@ export default function App() {
         <Text style={{ fontSize: 30, fontWeight:'bold', color:'white', textAlign:'center' }}>🍒Farmmunity🍓</Text>
       </View>
       <View style={{ flex: 1, backgroundColor: "green" }}>
-        {/* <Text>(selectbox)방울 토마토</Text> */}
-        <SelectCrops />
+        <SelectCrop />
         <Image
           style={styles.image}
           source="https://img.hankyung.com/photo/202403/AA.36104679.1.jpg"

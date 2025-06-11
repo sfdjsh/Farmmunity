@@ -1,37 +1,32 @@
 import SelectDropdown from "react-native-select-dropdown";
 import { StyleSheet, View, Text } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
+import getCropsNameApi from "../api/crops";
+import { useEffect, useState } from "react";
 
-const emojisWithIcons = [
-  { title: "happy" },
-  { title: "cool" },
-  { title: "lol" },
-  { title: "sad" },
-  { title: "cry" },
-  { title: "angry" },
-  { title: "confused" },
-  { title: "excited" },
-  { title: "kiss" },
-  { title: "devil" },
-  { title: "dead" },
-  { title: "wink" },
-  { title: "sick" },
-  { title: "frown" },
-];
+export default function SelectCrop() {
+  const [cropsName, setCropsName] = useState([{}]);
 
-export default function SelectCrops() {
+  useEffect(() => {
+    const fetchCropsName = async () => {
+      const cropsNameData = await getCropsNameApi();
+      setCropsName(cropsNameData);
+    };
+    fetchCropsName();
+  }, []);
+
   return (
     <View style={{ marginLeft: 10, marginTop: 20 }}>
       <SelectDropdown
-        data={emojisWithIcons}
+        data={cropsName}
         onSelect={(selectedItem, index) => {
-          console.log(selectedItem.title, index);
+          console.log(selectedItem.name, index);
         }}
         renderButton={(selectedItem, isOpened) => {
           return (
             <View style={styles.dropdownButtonStyle}>
               <Text style={styles.dropdownButtonTxtStyle}>
-                {selectedItem?.title || "전체"}
+                {selectedItem?.name || "전체"}
               </Text>
               <Entypo
                 name={isOpened ? "chevron-up" : "chevron-down"}
@@ -48,7 +43,7 @@ export default function SelectCrops() {
                 ...(isSelected && { backgroundColor: "#D2D9DF" }),
               }}
             >
-              <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
+              <Text style={styles.dropdownItemTxtStyle}>{item.name}</Text>
             </View>
           );
         }}
