@@ -19,7 +19,7 @@ export default function SelectCrop() {
   
   return (
     <>
-      <View style={{ marginLeft: 10, marginTop: 20 }}>
+      <View style={{ paddingLeft: 10, paddingTop: 20 }}>
         <SelectDropdown
           data={cropsName}
           onSelect={(selectedItem, index) => {

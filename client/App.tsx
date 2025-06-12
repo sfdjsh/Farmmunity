@@ -1,6 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SelectCrop from "./component/SelectCrop";
+import { Image } from "expo-image";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Entypo from "@expo/vector-icons/Entypo";
+import SelectOrderByArticle from "./component/article/SelectOrderByArticle";
+import TotalArticle from "./component/article/TotalArtticle";
 
 export default function App() {
   return (
@@ -24,18 +29,9 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <SelectCrop />
       </View>
-      <View style={{ backgroundColor: "black" }}>
-        <Text style={{ color: "white" }}>최신순</Text>
-      </View>
-      <View style={{ flex: 2, backgroundColor: "white" }}>
-        <View>
-          <Text>이미지(사진)</Text>
-          <View>
-            <Text>#해시태그</Text>
-            <Text>제목</Text>
-            <Text>댓글, 좋아요 이모티콘</Text>
-          </View>
-        </View>
+      <SelectOrderByArticle />
+      <View style={{ flex: 2, paddingTop: 20 }}>
+        <TotalArticle />
       </View>
     </View>
   );
@@ -45,5 +41,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#212528",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  horizonline: {
+    margin: "auto",
+    marginTop: 5,
+    width: "80%",
+    textAlign: "center",
+    borderTopWidth: 2,
+    borderColor: "#aaa",
+    // borderBottom: "1px solid #aaa",
+    // lineHeight: "0.1em",
+    // margin: "10px 0 20px",
   },
 });
