@@ -58,3 +58,27 @@ app.get("/select/crop", async (req, res) => {
 app.listen(3000, (req, res) => {
   console.log("Server Running..");
 });
+
+app.get("/articles", async (req, res) => {
+  try {
+    const connection = await connectDatabase();
+    const [rows] = await connection.query(
+      `SELECT 
+      a.idx, a.title, a.image, a.category, 
+      count(distinct c.idx) as comment_cnt, 
+      count(distinct l.idx) as like_cnt 
+      from articles a 
+      left join comments c on a.idx = c.article_idx 
+      left join likes l on a.idx = l.article_idx 
+      group by a.idx`
+    );
+    if (rows.length === 0) {
+      res.json({ data: null });
+    } else {
+      res.json({ data: rows });
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+});

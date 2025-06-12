@@ -3,54 +3,24 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Entypo from "@expo/vector-icons/Entypo";
+import { useEffect, useState } from "react";
+import { getTotalArticlesApi } from "../../api/articleApi";
 
 const TotalArticle = () => {
-  const dummyData = [
-    {
-      title: "테스트입니다.",
-      image: "https://img.hankyung.com/photo/202403/AA.36104679.1.jpg",
-      category: "방울토마토",
-      commentCnt: 3,
-      likeCnt: 3,
-    },
-    {
-      title: "테스트입니다2.",
-      image:
-        "https://images.mypetlife.co.kr/content/uploads/2021/09/16152032/times-1831237_1280-1024x682.jpg",
-      category: "포도",
-      commentCnt: 2,
-      likeCnt: 2,
-    },
-    {
-      title: "테스트입니다2.",
-      image:
-        "https://images.mypetlife.co.kr/content/uploads/2021/09/16152032/times-1831237_1280-1024x682.jpg",
-      category: "포도",
-      commentCnt: 2,
-      likeCnt: 2,
-    },
-    {
-      title: "테스트입니다2.",
-      image:
-        "https://images.mypetlife.co.kr/content/uploads/2021/09/16152032/times-1831237_1280-1024x682.jpg",
-      category: "포도",
-      commentCnt: 2,
-      likeCnt: 2,
-    },
-    {
-      title: "테스트입니다2.",
-      image:
-        "https://images.mypetlife.co.kr/content/uploads/2021/09/16152032/times-1831237_1280-1024x682.jpg",
-      category: "포도",
-      commentCnt: 2,
-      likeCnt: 2,
-    },
-  ];
+  const [articles, setArticles] = useState([{}]);
+
+  useEffect(() => {
+    const fetchTotalArticle = async () => {
+      const totalArticleData = await getTotalArticlesApi();
+      setArticles(totalArticleData);
+    };
+    fetchTotalArticle();
+  }, []);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      {dummyData &&
-        dummyData.map((data) => {
+      {articles &&
+        articles.map((data) => {
           return (
             <>
               <View style={{ flexDirection: "row" }}>
@@ -95,7 +65,7 @@ const TotalArticle = () => {
                         size={20}
                         color="black"
                       />
-                      <Text style={{ paddingLeft: 3 }}>2</Text>
+                      <Text style={{ paddingLeft: 3 }}>{data.comment_cnt}</Text>
                     </View>
                     <View
                       style={{
@@ -105,7 +75,7 @@ const TotalArticle = () => {
                       }}
                     >
                       <Entypo name="heart-outlined" size={23} color="black" />
-                      <Text style={{ paddingLeft: 1 }}>2</Text>
+                      <Text style={{ paddingLeft: 1 }}>{data.like_cnt}</Text>
                     </View>
                   </View>
                 </View>
@@ -137,9 +107,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderTopWidth: 2,
     borderColor: "#aaa",
-    // borderBottom: "1px solid #aaa",
-    // lineHeight: "0.1em",
-    // margin: "10px 0 20px",
   },
 });
 
