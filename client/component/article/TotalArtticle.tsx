@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -6,87 +5,105 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useEffect, useState } from "react";
 import { getTotalArticlesApi } from "../../api/articleApi";
 
-const TotalArticle = () => {
-  const [articles, setArticles] = useState([{}]);
+type GetArticleType = {
+  category: string;
+  comment_cnt: number;
+  idx: number;
+  image: string;
+  like_cnt: number;
+  title: string;
+};
+
+type PropsOrderByType = {
+  orderBy: string;
+};
+
+const TotalArticle = ({ orderBy }: PropsOrderByType) => {
+  const [articles, setArticles] = useState<GetArticleType[]>([]);
 
   useEffect(() => {
+    console.log(orderBy);
     const fetchTotalArticle = async () => {
-      const totalArticleData = await getTotalArticlesApi();
+      const totalArticleData = await getTotalArticlesApi(orderBy);
       setArticles(totalArticleData);
     };
     fetchTotalArticle();
-  }, []);
+  }, [orderBy]);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {articles &&
-        articles.map((data) => {
-          return (
-            <>
-              <View style={{ flexDirection: "row" }}>
-                <View
-                  style={{
-                    width: "30%",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Image
-                    style={styles.image}
-                    source={data.image}
-                    contentFit="cover"
-                  />
-                </View>
-                <View
-                  style={{
-                    width: "70%",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 15, color: "#757575" }}>
-                    # {data.category}
-                  </Text>
-                  <Text style={{ fontSize: 20, color: "white" }}>
-                    {data.title}
-                  </Text>
+    <View style={{ flex: 2, paddingTop: 20 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {articles &&
+          articles.map((data) => {
+            return (
+              <View key={data.idx}>
+                <View style={{ flexDirection: "row" }}>
                   <View
                     style={{
-                      flexDirection: "row",
-                      marginTop: 10,
+                      width: "30%",
                       alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <FontAwesome5
-                        name="comment-alt"
-                        size={20}
-                        color="black"
-                      />
-                      <Text style={{ paddingLeft: 3 }}>{data.comment_cnt}</Text>
-                    </View>
+                    <Image
+                      style={styles.image}
+                      source={data.image}
+                      contentFit="cover"
+                    />
+                  </View>
+                  <View
+                    style={{
+                      width: "70%",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: 15, color: "#757575" }}>
+                      # {data.category}
+                    </Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>
+                      {data.title}
+                    </Text>
                     <View
                       style={{
                         flexDirection: "row",
+                        marginTop: 10,
                         alignItems: "center",
-                        marginLeft: 5,
                       }}
                     >
-                      <Entypo name="heart-outlined" size={23} color="black" />
-                      <Text style={{ paddingLeft: 1 }}>{data.like_cnt}</Text>
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <FontAwesome5
+                          name="comment-alt"
+                          size={20}
+                          color="black"
+                        />
+                        <Text style={{ paddingLeft: 3 }}>
+                          {data.comment_cnt}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          marginLeft: 5,
+                        }}
+                      >
+                        <Entypo name="heart-outlined" size={23} color="black" />
+                        <Text style={{ paddingLeft: 1 }}>{data.like_cnt}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
+                <View>
+                  <Text style={styles.horizonline}></Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.horizonline}></Text>
-              </View>
-            </>
-          );
-        })}
-    </ScrollView>
+            );
+          })}
+      </ScrollView>
+    </View>
   );
 };
 

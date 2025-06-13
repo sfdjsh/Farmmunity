@@ -1,47 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import Entypo from "@expo/vector-icons/Entypo";
+import TotalArticle from "./TotalArtticle";
 
 const SelectOrderByArticle = () => {
   const orderByOption = ["최신순", "인기순"];
   const [orderBy, setOrderBy] = useState("최신순");
 
+  // useEffect(() => {
+  //   console.log(orderBy);
+  // }, [orderBy]);
   return (
-    <View style={{ paddingLeft: 10, paddingTop: 20 }}>
-      <SelectDropdown
-        data={orderByOption}
-        onSelect={(selectedItem) => {
-          setOrderBy(selectedItem);
-        }}
-        renderButton={(selectedItem, isOpened) => {
-          return (
-            <View style={styles.dropdownButtonStyle}>
-              <Text style={styles.dropdownButtonTxtStyle}>
-                {orderBy || "최신순"}
-              </Text>
-              <Entypo
-                name={isOpened ? "chevron-up" : "chevron-down"}
-                style={styles.dropdownButtonArrowStyle}
-              />
-            </View>
-          );
-        }}
-        renderItem={(item, index, isSelected) => {
-          return (
-            <View
-              style={{
-                ...styles.dropdownItemStyle,
-                ...(isSelected && { backgroundColor: "#D2D9DF" }),
-              }}
-            >
-              <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
-            </View>
-          );
-        }}
-        dropdownStyle={styles.dropdownMenuStyle}
-      />
-    </View>
+    <>
+      <View style={{ paddingLeft: 10, paddingTop: 20 }}>
+        <SelectDropdown
+          data={orderByOption}
+          onSelect={(selectedItem) => {
+            setOrderBy(selectedItem);
+          }}
+          renderButton={(selectedItem, isOpened) => {
+            return (
+              <View style={styles.dropdownButtonStyle}>
+                <Text style={styles.dropdownButtonTxtStyle}>
+                  {orderBy || "최신순"}
+                </Text>
+                <Entypo
+                  name={isOpened ? "chevron-up" : "chevron-down"}
+                  style={styles.dropdownButtonArrowStyle}
+                />
+              </View>
+            );
+          }}
+          renderItem={(item, index, isSelected) => {
+            return (
+              <View
+                style={{
+                  ...styles.dropdownItemStyle,
+                  ...(isSelected && { backgroundColor: "#D2D9DF" }),
+                }}
+              >
+                <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+              </View>
+            );
+          }}
+          dropdownStyle={styles.dropdownMenuStyle}
+        />
+      </View>
+      <TotalArticle orderBy={orderBy} />
+    </>
   );
 };
 

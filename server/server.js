@@ -60,6 +60,12 @@ app.listen(3000, (req, res) => {
 });
 
 app.get("/articles", async (req, res) => {
+  const { orderBy } = req.query;
+  const queryOrderBy =
+    orderBy === "인기순"
+      ? "order by like_cnt desc"
+      : "order by a.updated_at desc";
+
   try {
     const connection = await connectDatabase();
     const [rows] = await connection.query(
@@ -70,7 +76,9 @@ app.get("/articles", async (req, res) => {
       from articles a 
       left join comments c on a.idx = c.article_idx 
       left join likes l on a.idx = l.article_idx 
-      group by a.idx`
+      group by a.idx
+      ${queryOrderBy}
+      `
     );
     if (rows.length === 0) {
       res.json({ data: null });

@@ -1,11 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import SelectCrop from "./component/SelectCrop";
-import { Image } from "expo-image";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import Entypo from "@expo/vector-icons/Entypo";
 import SelectOrderByArticle from "./component/article/SelectOrderByArticle";
-import TotalArticle from "./component/article/TotalArtticle";
 
 export default function App() {
   return (
@@ -30,9 +26,6 @@ export default function App() {
         <SelectCrop />
       </View>
       <SelectOrderByArticle />
-      <View style={{ flex: 2, paddingTop: 20 }}>
-        <TotalArticle />
-      </View>
     </View>
   );
 }
