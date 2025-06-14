@@ -2,31 +2,35 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import SelectCrop from "./component/SelectCrop";
 import SelectOrderByArticle from "./component/article/SelectOrderByArticle";
+import BottomBar from "./common/BottomBar";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      {/* <View style={{ backgroundColor: "green", marginTop: 50 }}>
+    <>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        {/* <View style={{ backgroundColor: "green", marginTop: 50 }}>
         <Text>에로우 버튼</Text>
       </View> */}
-      <View style={{ marginTop: 50 }}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: "bold",
-            color: "white",
-            textAlign: "center",
-          }}
-        >
-          🍒Farmmunity🍓
-        </Text>
+        <View style={{ marginTop: 50 }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontWeight: "bold",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            🍒Farmmunity🍓
+          </Text>
+        </View>
+        {/* <View style={{ flex: 1 }}>
+          <SelectCrop />
+        </View>
+        <SelectOrderByArticle /> */}
+        <BottomBar />
       </View>
-      <View style={{ flex: 1 }}>
-        <SelectCrop />
-      </View>
-      <SelectOrderByArticle />
-    </View>
+    </>
   );
 }
 

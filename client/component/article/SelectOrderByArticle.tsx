@@ -8,9 +8,6 @@ const SelectOrderByArticle = () => {
   const orderByOption = ["최신순", "인기순"];
   const [orderBy, setOrderBy] = useState("최신순");
 
-  // useEffect(() => {
-  //   console.log(orderBy);
-  // }, [orderBy]);
   return (
     <>
       <View style={{ paddingLeft: 10, paddingTop: 20 }}>

@@ -23,12 +23,7 @@ const SelectedCropInfo = ({ name }: SelectedCropNameProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.marginTop10}>
-        <Image
-          style={styles.image}
-          source={cropImage}
-          contentFit="cover"
-          // transition={1000}
-        />
+        <Image style={styles.image} source={cropImage} contentFit="cover" />
       </View>
       <Text
         style={{

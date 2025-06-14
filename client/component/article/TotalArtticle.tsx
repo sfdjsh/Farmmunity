@@ -41,21 +41,37 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
                   <View
                     style={{
                       width: "30%",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      ...styles.flexCenter,
                     }}
                   >
-                    <Image
-                      style={styles.image}
-                      source={data.image}
-                      contentFit="cover"
-                    />
+                    {data.image ? (
+                      <Image
+                        style={styles.image}
+                        source={data.image}
+                        contentFit="cover"
+                      />
+                    ) : (
+                      <View
+                        style={{
+                          ...styles.flexCenter,
+                          ...styles.image,
+                          backgroundColor: "grey",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                          }}
+                        >
+                          No Image
+                        </Text>
+                      </View>
+                    )}
                   </View>
                   <View
                     style={{
                       width: "70%",
-                      flexDirection: "column",
-                      justifyContent: "center",
+                      ...styles.flexCenter,
                     }}
                   >
                     <Text style={{ fontSize: 15, color: "#757575" }}>
@@ -108,9 +124,9 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#212528",
+  flexCenter: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: 100,

@@ -16,7 +16,7 @@ export default function SelectCrop() {
     };
     fetchCropsName();
   }, [selectedCrop]);
-  
+
   return (
     <>
       <View style={{ paddingLeft: 10, paddingTop: 20 }}>
@@ -54,7 +54,7 @@ export default function SelectCrop() {
           dropdownStyle={styles.dropdownMenuStyle}
         />
       </View>
-      <SelectedCropInfo name = {selectedCrop}/>
+      <SelectedCropInfo name={selectedCrop} />
     </>
   );
 }
@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     paddingHorizontal: 12,
-    // justifyContent: "center",
-    // alignItems: "center",
     paddingVertical: 8,
   },
   dropdownItemTxtStyle: {
