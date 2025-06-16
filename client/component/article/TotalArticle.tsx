@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "expo-image";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useEffect, useState } from "react";
 import { getTotalArticlesApi } from "../../api/articleApi";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type GetArticleType = {
   category: string;
@@ -18,7 +26,14 @@ type PropsOrderByType = {
   orderBy: string;
 };
 
+export type RootStackParamList = {
+  TotalArticle: undefined;
+  ArticleDetail: { id: number };
+};
+
 const TotalArticle = ({ orderBy }: PropsOrderByType) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [articles, setArticles] = useState<GetArticleType[]>([]);
 
   useEffect(() => {
@@ -35,7 +50,12 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
         {articles &&
           articles.map((data) => {
             return (
-              <View key={data.idx}>
+              <TouchableOpacity
+                key={data.idx}
+                onPress={() =>
+                  navigation.navigate("ArticleDetail", { id: data.idx })
+                }
+              >
                 <View style={{ flexDirection: "row" }}>
                   <View
                     style={{
@@ -103,7 +123,7 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
                 <View>
                   <Text style={styles.horizonline}></Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
       </ScrollView>
