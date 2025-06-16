@@ -90,3 +90,35 @@ app.get("/articles", async (req, res) => {
     throw err;
   }
 });
+
+app.get("/article/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const connection = await connectDatabase();
+    const [article] = await connection.query(
+      `select 
+      a.idx, a.title, a.image, a.category, a.content,
+      (select count(*) from comments where article_idx = a.idx) as comment_cnt,
+      (select count(*) from likes where article_idx = a.idx) as like_cnt
+      from articles a
+      where idx = ?`,
+      [id]
+    );
+    const [comment] = await connection.query(
+      `select * from comments where article_idx = ?`,
+      [id]
+    );
+    if (article.length === 0) {
+      res.json({ data: null });
+    } else {
+      res.json({
+        data: {
+          article: article[0],
+          comment: comment,
+        },
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});

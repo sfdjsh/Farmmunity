@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import Entypo from "@expo/vector-icons/Entypo";
-import TotalArticle from "./TotalArtticle";
+import TotalArticle from "./TotalArticle";
 
 const SelectOrderByArticle = () => {
   const orderByOption = ["최신순", "인기순"];

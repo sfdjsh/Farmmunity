@@ -22,7 +22,6 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
   const [articles, setArticles] = useState<GetArticleType[]>([]);
 
   useEffect(() => {
-    console.log(orderBy);
     const fetchTotalArticle = async () => {
       const totalArticleData = await getTotalArticlesApi(orderBy);
       setArticles(totalArticleData);
@@ -58,22 +57,11 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
                           backgroundColor: "grey",
                         }}
                       >
-                        <Text
-                          style={{
-                            color: "white",
-                          }}
-                        >
-                          No Image
-                        </Text>
+                        <Text style={{ color: "white" }}>No Image</Text>
                       </View>
                     )}
                   </View>
-                  <View
-                    style={{
-                      width: "70%",
-                      ...styles.flexCenter,
-                    }}
-                  >
+                  <View style={{ width: "70%" }}>
                     <Text style={{ fontSize: 15, color: "#757575" }}>
                       # {data.category}
                     </Text>
