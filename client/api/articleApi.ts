@@ -1,8 +1,10 @@
 import {BASE_URL} from "@env"
+import { CropOrderByProps } from "../component/article/TotalArticle";
 
-export const getTotalArticlesApi = async (orderBy: string) => {
-    const data = await fetch(`${BASE_URL}/articles?orderBy=${orderBy}`)
+export const getTotalArticlesApi = async ({selectedCrop, orderBy}: CropOrderByProps) => {
+    const data = await fetch(`${BASE_URL}/articles?crop=${selectedCrop}&orderBy=${orderBy}`)
     const res = await data.json();
+    console.log(res)
     return res.data
 }
 

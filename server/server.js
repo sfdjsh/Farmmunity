@@ -60,7 +60,9 @@ app.listen(3000, (req, res) => {
 });
 
 app.get("/articles", async (req, res) => {
-  const { orderBy } = req.query;
+  const crop = req.query.crop;
+  const orderBy = req.query.orderBy;
+
   const queryOrderBy =
     orderBy === "인기순"
       ? "order by like_cnt desc"
@@ -76,9 +78,11 @@ app.get("/articles", async (req, res) => {
       from articles a 
       left join comments c on a.idx = c.article_idx 
       left join likes l on a.idx = l.article_idx 
+      ${crop !== "전체" ? `where a.category = ?` : ""}
       group by a.idx
       ${queryOrderBy}
-      `
+      `,
+      [crop]
     );
     if (rows.length === 0) {
       res.json({ data: null });

@@ -31,24 +31,32 @@ export type RootStackParamList = {
   ArticleDetail: { id: number };
 };
 
-const TotalArticle = ({ orderBy }: PropsOrderByType) => {
+export type CropOrderByProps = {
+  selectedCrop: string;
+  orderBy: string;
+};
+
+const TotalArticle = ({ selectedCrop, orderBy }: CropOrderByProps) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [articles, setArticles] = useState<GetArticleType[]>([]);
 
   useEffect(() => {
     const fetchTotalArticle = async () => {
-      const totalArticleData = await getTotalArticlesApi(orderBy);
+      const totalArticleData = await getTotalArticlesApi({
+        selectedCrop,
+        orderBy,
+      });
       setArticles(totalArticleData);
     };
     fetchTotalArticle();
-  }, [orderBy]);
+  }, [selectedCrop, orderBy]);
 
   return (
     <View style={{ flex: 2, paddingTop: 20 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {articles &&
-          articles.map((data) => {
+      {articles ? (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {articles.map((data) => {
             return (
               <TouchableOpacity
                 key={data.idx}
@@ -126,7 +134,14 @@ const TotalArticle = ({ orderBy }: PropsOrderByType) => {
               </TouchableOpacity>
             );
           })}
-      </ScrollView>
+        </ScrollView>
+      ) : (
+        <View style={{ margin: "auto" }}>
+          <Text style={{ fontSize: 20, color: "grey" }}>
+            작성한 게시글이 없습니다.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

@@ -4,9 +4,13 @@ import SelectDropdown from "react-native-select-dropdown";
 import Entypo from "@expo/vector-icons/Entypo";
 import TotalArticle from "./TotalArticle";
 
-const SelectOrderByArticle = () => {
+type orderByProps = {
+  orderBy: string;
+  setOrderBy(orderBy: string): void;
+};
+
+const SelectOrderByArticle = ({ orderBy, setOrderBy }: orderByProps) => {
   const orderByOption = ["최신순", "인기순"];
-  const [orderBy, setOrderBy] = useState("최신순");
 
   return (
     <>
@@ -44,7 +48,6 @@ const SelectOrderByArticle = () => {
           dropdownStyle={styles.dropdownMenuStyle}
         />
       </View>
-      <TotalArticle orderBy={orderBy} />
     </>
   );
 };

@@ -5,9 +5,13 @@ import { getCropsNameApi } from "../api/crops";
 import { useEffect, useState } from "react";
 import SelectedCropInfo from "./SelectedCropInfo";
 
-export default function SelectCrop() {
+type cropProps = {
+  selectedCrop: string;
+  setSelectedCrop(crop: string): void;
+};
+
+export default function SelectCrop({ selectedCrop, setSelectedCrop }: cropProps) {
   const [cropsName, setCropsName] = useState([{}]);
-  const [selectedCrop, setSelectedCrop] = useState("전체");
 
   useEffect(() => {
     const fetchCropsName = async () => {
@@ -15,7 +19,7 @@ export default function SelectCrop() {
       setCropsName(cropsNameData);
     };
     fetchCropsName();
-  }, [selectedCrop]);
+  }, [cropsName]);
 
   return (
     <>
