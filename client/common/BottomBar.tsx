@@ -14,7 +14,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 const Tab = createBottomTabNavigator();
 
 const BottomBar = () => {
-  const isLogin = true;
+  const isLogin = false;
   return (
     <Tab.Navigator
       screenOptions={{

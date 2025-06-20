@@ -22,10 +22,6 @@ type GetArticleType = {
   title: string;
 };
 
-type PropsOrderByType = {
-  orderBy: string;
-};
-
 export type RootStackParamList = {
   TotalArticle: undefined;
   ArticleDetail: { id: number };
