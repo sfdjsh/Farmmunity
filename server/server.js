@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const connectDatabase = require("./db/mysql.js");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "your_jwt_secret";
 
 const app = express();
 app.use(express.json());
@@ -122,6 +125,60 @@ app.get("/article/:id", async (req, res) => {
         },
       });
     }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.get("/login", async (req, res) => {
+  const { id, password } = req.body;
+  try {
+    const connection = await connectDatabase();
+    const [user] = await connection.query("select * from users where id = ?", [
+      id,
+    ]);
+
+    if (!user)
+      return res
+        .status(401)
+        .json({ message: "아이디 또는 비밀번호가 틀렸습니다." });
+
+    console.log(user[0]);
+
+    const passwordMatch = await bcrypt.compare(password, user[0].password);
+    if (!passwordMatch)
+      return res
+        .status(401)
+        .json({ message: "아이디 또는 비밀번호가 틀렸습니다" });
+
+    const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
+    res.cookie("token", token, { httpOnly: true });
+    res.json({ message: "로그인 성공" });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.get("/signup", async (req, res) => {
+  const { id, password, nickname, profileImg } = req.body;
+  try {
+    const connection = await connectDatabase();
+    const [checkId] = await connection.query(
+      `select * from users where id = ?`,
+      [id]
+    );
+
+    if (!checkId)
+      return res.status(401).json({ message: "아이디를 다시 확인해주세요." });
+
+    const passwordHashed = await bcrypt.hash(password, 10);
+    const [user] = await connection.query(
+      "insert into users (id, password, nickname, profile_img) values (?, ?, ?, ?)",
+      [id, passwordHashed, nickname, profileImg]
+    );
+    if (user) res.status(201).json({ message: "회원가입 성공" });
   } catch (err) {
     console.error(err);
   }
